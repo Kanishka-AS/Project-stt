@@ -87,6 +87,10 @@ async def bot(runner_args: RunnerArguments):
     """Main bot entry point."""
 
     transport_params = {
+	"daily": lambda: TransportParams(
+        audio_in_enabled=True,
+        audio_out_enabled=False,
+        ),
         # No audio_out needed — the bot never speaks, it only listens.
         "webrtc": lambda: TransportParams(
             audio_in_enabled=True,

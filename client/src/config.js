@@ -4,10 +4,10 @@
  */
 
 export const AVAILABLE_TRANSPORTS = [
-  'smallwebrtc',
+  'daily',
 ];
 
-export const DEFAULT_TRANSPORT = 'smallwebrtc';
+export const DEFAULT_TRANSPORT = 'daily';
 
 const botStartUrl =
   import.meta.env.VITE_BOT_START_URL || 'http://localhost:7860/start';
