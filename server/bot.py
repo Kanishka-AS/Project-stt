@@ -106,4 +106,4 @@ async def bot(runner_args: RunnerArguments):
 if __name__ == "__main__":
     from pipecat.runner.run import main
 
-    main()
+    main(allowed_origins=["https://project-stt.vercel.app"])
