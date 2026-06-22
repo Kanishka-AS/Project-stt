@@ -74,6 +74,10 @@ export const TRANSPORT_CONFIG = {
  */
 export async function createTransport(transportType) {
   switch (transportType) {
+    case 'daily': {
+      const { DailyTransport } = await import('@pipecat-ai/daily-transport');
+      return new DailyTransport();
+    } 	
 
     case 'smallwebrtc': {
       const { SmallWebRTCTransport } = await import('@pipecat-ai/small-webrtc-transport');
