@@ -29,6 +29,7 @@ from pipecat.runner.utils import create_transport
 from pipecat.services.deepgram.stt import DeepgramSTTService
 from pipecat.transports.base_transport import BaseTransport, TransportParams
 from pipecat.workers.runner import WorkerRunner
+from pipecat.transports.services.daily import DailyParams
 
 load_dotenv(override=True)
 
@@ -73,7 +74,7 @@ async def bot(runner_args: RunnerArguments):
     """Main bot entry point."""
 
     transport_params = {
-        "daily": lambda: TransportParams(
+        "daily": lambda: DailyParams(
             audio_in_enabled=True,
             audio_out_enabled=False,
         ),
