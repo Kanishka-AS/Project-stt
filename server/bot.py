@@ -15,7 +15,7 @@ Required AI services:
 
 Run the bot using::
 
-    uv run bot.py
+    python bot.py --host 0.0.0.0 --port 10000
 """
 
 import os
@@ -34,23 +34,10 @@ load_dotenv(override=True)
 
 
 async def run_bot(transport: BaseTransport, runner_args: RunnerArguments) -> None:
-    """Run the speech-to-text session for this client.
-
-    Args:
-        transport: The transport for this session, built by ``create_transport``.
-        runner_args: Runner session arguments. Carries the request ``body`` and
-            ``session_id``; this simple pipeline doesn't need them.
-    """
     logger.info("Starting bot")
 
-    # Speech-to-Text service — this is the only processing stage.
-    # As Deepgram returns interim and final results, the pipeline emits
-    # InterimTranscriptionFrame / TranscriptionFrame frames, which the
-    # worker's RTVI integration automatically forwards to the client as
-    # `onUserTranscript` events — no LLM or TTS required.
     stt = DeepgramSTTService(api_key=os.getenv("DEEPGRAM_API_KEY"))
 
-    # Pipeline: mic audio in -> STT -> transcript frames back out
     pipeline = Pipeline(
         [
             transport.input(),
@@ -78,7 +65,6 @@ async def run_bot(transport: BaseTransport, runner_args: RunnerArguments) -> Non
         await worker.cancel()
 
     runner = WorkerRunner(handle_sigint=False)
-
     await runner.add_workers(worker)
     await runner.run()
 
@@ -87,11 +73,10 @@ async def bot(runner_args: RunnerArguments):
     """Main bot entry point."""
 
     transport_params = {
-	"daily": lambda: TransportParams(
-        audio_in_enabled=True,
-        audio_out_enabled=False,
+        "daily": lambda: TransportParams(
+            audio_in_enabled=True,
+            audio_out_enabled=False,
         ),
-        # No audio_out needed — the bot never speaks, it only listens.
         "webrtc": lambda: TransportParams(
             audio_in_enabled=True,
             audio_out_enabled=False,
@@ -99,11 +84,9 @@ async def bot(runner_args: RunnerArguments):
     }
 
     transport = await create_transport(runner_args, transport_params)
-
     await run_bot(transport, runner_args)
 
 
 if __name__ == "__main__":
     from pipecat.runner.run import main
-
     main()
