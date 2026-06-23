@@ -7,7 +7,7 @@ Pipecat bot, which runs it through Deepgram and streams live transcripts
 ## Configuration
 
 - **Bot Type**: Web
-- **Transport(s)**: SmallWebRTC
+- **Transport(s)**: Daily
 - **Pipeline**: STT only
   - **STT**: Deepgram
 
@@ -62,7 +62,7 @@ Pipecat bot, which runs it through Deepgram and streams live transcripts
 
    ```bash
    cp env.example .env.local
-   # Edit .env.local if needed (defaults to localhost:7860)
+   # Edit .env.local and set VITE_BOT_START_URL to your deployed bot server URL
    ```
 
    > **Note:** Environment variables in Vite are bundled into the client and exposed in the browser. For production applications that require secret protection, consider implementing a backend proxy server to handle API requests and manage sensitive credentials securely.
@@ -94,9 +94,13 @@ stt-js/
 ├── .gitignore           # Git ignore patterns
 └── README.md            # This file
 ```
+
 ## Learn More
 
 - [Pipecat Documentation](https://docs.pipecat.ai/)
 - [Pipecat GitHub](https://github.com/pipecat-ai/pipecat)
+- [Pipecat Examples](https://github.com/pipecat-ai/pipecat-examples)
+- [Discord Community](https://discord.gg/pipecat)
+
 - [Pipecat Examples](https://github.com/pipecat-ai/pipecat-examples)
 - [Discord Community](https://discord.gg/pipecat)
