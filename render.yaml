@@ -4,7 +4,7 @@ services:
     runtime: python
     rootDir: server
     buildCommand: pip install --no-cache-dir "pipecat-ai[daily,deepgram,runner,webrtc]==1.4.0" python-dotenv loguru
-    startCommand: python bot.py --host 0.0.0.0 --port 10000
+    startCommand: python -m pipecat.runner.run bot:bot --host 0.0.0.0 --port 10000
     envVars:
       - key: ALLOWED_ORIGINS
         value: "*"
